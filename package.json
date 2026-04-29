@@ -1,0 +1,40 @@
+{
+  "name": "tollgate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tollgate — the vending machine for AI agents. A Solana-native HTTP 402 payment protocol.",
+  "homepage": "https://github.com/Moc01/tollgate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moc01/tollgate.git"
+  },
+  "license": "MIT",
+  "author": "Moc01",
+  "engines": {
+    "node": ">=20.10.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/*' build",
+    "dev": "pnpm -r --parallel dev",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "pnpm -r test",
+    "clean": "pnpm -r clean && rm -rf node_modules",
+    "tg:keygen": "tsx scripts/keygen.ts",
+    "tg:airdrop-usdc": "tsx scripts/airdrop-usdc.ts",
+    "tg:e2e": "tsx scripts/e2e.ts",
+    "db:generate": "pnpm --filter shared db:generate",
+    "db:migrate": "pnpm --filter shared db:migrate",
+    "db:seed": "pnpm --filter shared db:seed"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}
