@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/v1/(.*)", "destination": "/api/index?path=v1/$1" }
+  ],
+  "functions": {
+    "api/index.ts": {
+      "runtime": "@vercel/node@3.2.24"
+    }
+  }
+}
