@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
+  USDC_MINT_DEVNET,
+  USDC_MINT_MAINNET,
   assertValidSolanaAddress,
   buildSolanaPayUrl,
   fromUsdcUnits,
@@ -9,8 +11,6 @@ import {
   networkFromUsdcMint,
   splitUsdcUnits,
   toUsdcUnits,
-  USDC_MINT_DEVNET,
-  USDC_MINT_MAINNET,
 } from '../src/solana'
 
 describe('USDC mint constants', () => {

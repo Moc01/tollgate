@@ -1,3 +1,4 @@
+import { fromUsdcUnits, toUsdcUnits } from '@tollgate/shared'
 /**
  * POST /v1/webhook/helius — handle USDC arrival notifications.
  *
@@ -12,7 +13,6 @@
  * format which includes parsed instructions.
  */
 import { Hono } from 'hono'
-import { fromUsdcUnits, toUsdcUnits } from '@tollgate/shared'
 import type { AppContext } from '../app'
 import { verifyPayment } from '../lib/solana'
 
@@ -51,7 +51,11 @@ webhookRouter.post('/webhook/helius', async (c) => {
   // Normalize: Helius sends an array of tx objects.
   const transactions = Array.isArray(payload) ? payload : [payload]
 
-  const processed: Array<{ signature: string; status: 'paid' | 'unknown' | 'failed'; reason?: string }> = []
+  const processed: Array<{
+    signature: string
+    status: 'paid' | 'unknown' | 'failed'
+    reason?: string
+  }> = []
 
   for (const tx of transactions) {
     const txObj = tx as {

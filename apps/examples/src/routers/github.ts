@@ -1,5 +1,5 @@
-import { Hono } from 'hono'
 import { tollgate } from '@tollgate/middleware/hono'
+import { Hono } from 'hono'
 import { GITHUB_REPOS, searchAll } from '../data/mocks'
 
 export function githubRouter(opts: { recipient: string; settlementUrl: string }) {

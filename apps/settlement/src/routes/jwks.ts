@@ -1,8 +1,8 @@
+import { buildJwks } from '@tollgate/shared'
 /**
  * GET /v1/jwks — publish public keys for middleware to verify access tokens.
  */
 import { Hono } from 'hono'
-import { buildJwks } from '@tollgate/shared'
 import type { AppContext } from '../app'
 
 export const jwksRouter = new Hono<AppContext>()

@@ -38,10 +38,19 @@
       },
       "style": {
         "noNonNullAssertion": "off",
-        "useImportType": "warn"
+        "useImportType": "warn",
+        "useTemplate": "off",
+        "noUnusedTemplateLiteral": "off"
       },
       "suspicious": {
-        "noExplicitAny": "warn"
+        "noExplicitAny": "warn",
+        "noImplicitAnyLet": "warn"
+      },
+      "complexity": {
+        "noUselessStringConcat": "off"
+      },
+      "a11y": {
+        "useButtonType": "warn"
       }
     }
   },

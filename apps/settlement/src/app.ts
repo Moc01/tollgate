@@ -14,13 +14,13 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
-import { intentRouter } from './routes/intent'
-import { confirmRouter } from './routes/confirm'
-import { jwksRouter } from './routes/jwks'
-import { webhookRouter } from './routes/webhook'
-import { endpointsRouter } from './routes/endpoints'
 import type { AppConfig } from './lib/config'
 import type { Store } from './lib/store'
+import { confirmRouter } from './routes/confirm'
+import { endpointsRouter } from './routes/endpoints'
+import { intentRouter } from './routes/intent'
+import { jwksRouter } from './routes/jwks'
+import { webhookRouter } from './routes/webhook'
 
 export interface AppContext {
   Variables: {

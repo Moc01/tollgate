@@ -1,8 +1,3 @@
-/**
- * Postgres-backed Store implementation, using Drizzle and the schema from
- * @tollgate/shared/db.
- */
-import { and, eq, lt } from 'drizzle-orm'
 import {
   type TollgateDb,
   calls as callsTable,
@@ -12,6 +7,11 @@ import {
   revenueLedger as ledgerTable,
   tokensIssued as tokensTable,
 } from '@tollgate/shared/db'
+/**
+ * Postgres-backed Store implementation, using Drizzle and the schema from
+ * @tollgate/shared/db.
+ */
+import { and, eq, lt } from 'drizzle-orm'
 import type { EndpointRow, IntentRecord, Store } from './store'
 
 export class PostgresStore implements Store {
@@ -22,7 +22,11 @@ export class PostgresStore implements Store {
   }
 
   async getEndpoint(id: string): Promise<EndpointRow | null> {
-    const rows = await this.db.select().from(endpointsTable).where(eq(endpointsTable.id, id)).limit(1)
+    const rows = await this.db
+      .select()
+      .from(endpointsTable)
+      .where(eq(endpointsTable.id, id))
+      .limit(1)
     const row = rows[0]
     if (!row) return null
     return {

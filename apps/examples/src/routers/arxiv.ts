@@ -1,5 +1,5 @@
-import { Hono } from 'hono'
 import { tollgate } from '@tollgate/middleware/hono'
+import { Hono } from 'hono'
 import { ARXIV_PAPERS, searchAll } from '../data/mocks'
 
 export function arxivRouter(opts: { recipient: string; settlementUrl: string }) {

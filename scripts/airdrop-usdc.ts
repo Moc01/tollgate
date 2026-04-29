@@ -22,9 +22,7 @@ async function main() {
     try {
       wallet = execSync('solana address').toString().trim()
     } catch {
-      console.error(
-        '❌ Could not determine wallet. Set SOLANA_KEYPAIR or pass --wallet=<pubkey>.',
-      )
+      console.error('❌ Could not determine wallet. Set SOLANA_KEYPAIR or pass --wallet=<pubkey>.')
       process.exit(1)
     }
   }

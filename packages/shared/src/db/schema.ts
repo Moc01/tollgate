@@ -17,12 +17,7 @@ import {
 } from 'drizzle-orm/pg-core'
 import type { RevenueSplit } from '../types'
 
-export const intentStatusEnum = pgEnum('intent_status', [
-  'pending',
-  'paid',
-  'expired',
-  'failed',
-])
+export const intentStatusEnum = pgEnum('intent_status', ['pending', 'paid', 'expired', 'failed'])
 
 export const users = pgTable(
   'users',

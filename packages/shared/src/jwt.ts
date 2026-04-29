@@ -158,7 +158,10 @@ export async function buildJwks(
  * Fetch a JWKS document and return the matching JWK for a given kid.
  * Caches results in-process for the duration of `ttlMs`.
  */
-const jwksCache = new Map<string, { fetchedAt: number; document: { keys: (JWK & { kid?: string })[] } }>()
+const jwksCache = new Map<
+  string,
+  { fetchedAt: number; document: { keys: (JWK & { kid?: string })[] } }
+>()
 const JWKS_CACHE_TTL_MS = 60_000
 
 export async function fetchJwk(jwksUrl: string, kid: string): Promise<JWK> {

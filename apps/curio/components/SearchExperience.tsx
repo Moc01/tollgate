@@ -135,7 +135,9 @@ export function SearchExperience() {
             </div>
             <button
               type="submit"
-              disabled={!query.trim() || state.status === 'thinking' || state.status === 'streaming'}
+              disabled={
+                !query.trim() || state.status === 'thinking' || state.status === 'streaming'
+              }
               className="px-4 py-1.5 text-sm font-medium rounded-md bg-accent hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
             >
               {state.status === 'thinking' || state.status === 'streaming' ? 'Working…' : 'Ask'}
@@ -324,7 +326,9 @@ function applyEvent(
         return {
           ...s,
           toolCalls: s.toolCalls.map((c) =>
-            c.id === e.id ? { ...c, status: 'paid', txSignature: e.tx_signature, durationMs: e.duration_ms } : c,
+            c.id === e.id
+              ? { ...c, status: 'paid', txSignature: e.tx_signature, durationMs: e.duration_ms }
+              : c,
           ),
         }
       case 'tool_call_done':
@@ -337,9 +341,7 @@ function applyEvent(
       case 'tool_call_error':
         return {
           ...s,
-          toolCalls: s.toolCalls.map((c) =>
-            c.id === e.id ? { ...c, status: 'error' } : c,
-          ),
+          toolCalls: s.toolCalls.map((c) => (c.id === e.id ? { ...c, status: 'error' } : c)),
         }
       case 'answer_chunk':
         return { ...s, status: 'streaming', answer: s.answer + e.text }

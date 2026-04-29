@@ -75,9 +75,7 @@ export function resolveConfig(opts: MiddlewareConfig): ResolvedMiddlewareConfig 
   }
 
   const settlementUrl =
-    opts.settlementUrl ??
-    process.env.TOLLGATE_SETTLEMENT_URL ??
-    'https://tollgate.dev/api/settle'
+    opts.settlementUrl ?? process.env.TOLLGATE_SETTLEMENT_URL ?? 'https://tollgate.dev/api/settle'
 
   const network: SolanaNetwork =
     opts.network ?? ((process.env.SOLANA_NETWORK as SolanaNetwork) || 'devnet')

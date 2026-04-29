@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from 'express'
 import type { AccessTokenPayload, MiddlewareConfig } from '@tollgate/shared'
+import type { NextFunction, Request, Response } from 'express'
 import { evaluateRequest, resolveConfig } from './core'
 
 /**
@@ -27,12 +27,10 @@ export function tollgate(
   const config = resolveConfig(opts)
 
   return async (req, res, next) => {
-    const authHeader =
-      (req.headers.authorization as string | undefined) ?? undefined
+    const authHeader = (req.headers.authorization as string | undefined) ?? undefined
     const ipAddress =
-      ((req.headers['x-forwarded-for'] as string | undefined) ?? '')
-        .split(',')[0]
-        ?.trim() || (req.socket.remoteAddress ?? undefined)
+      ((req.headers['x-forwarded-for'] as string | undefined) ?? '').split(',')[0]?.trim() ||
+      (req.socket.remoteAddress ?? undefined)
 
     const result = await evaluateRequest({ authHeader, ipAddress }, config)
 

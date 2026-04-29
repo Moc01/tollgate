@@ -1,5 +1,5 @@
-import { Hono } from 'hono'
 import { tollgate } from '@tollgate/middleware/hono'
+import { Hono } from 'hono'
 import { SOLANA_DOCS, searchAll } from '../data/mocks'
 
 export function solanaDocsRouter(opts: { recipient: string; settlementUrl: string }) {

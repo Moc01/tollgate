@@ -1,5 +1,5 @@
-import type { Context, MiddlewareHandler } from 'hono'
 import type { MiddlewareConfig } from '@tollgate/shared'
+import type { Context, MiddlewareHandler } from 'hono'
 import { evaluateRequest, resolveConfig } from './core'
 
 /**

@@ -1,5 +1,5 @@
-import { Hono } from 'hono'
 import { tollgate } from '@tollgate/middleware/hono'
+import { Hono } from 'hono'
 import { searchWiki } from '../data/mocks'
 
 export function wikiRouter(opts: { recipient: string; settlementUrl: string }) {

@@ -1,12 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: [
-    'src/index.ts',
-    'src/anthropic.ts',
-    'src/openai.ts',
-    'src/wallet.ts',
-  ],
+  entry: ['src/index.ts', 'src/anthropic.ts', 'src/openai.ts', 'src/wallet.ts'],
   format: ['esm', 'cjs'],
   dts: true,
   splitting: false,

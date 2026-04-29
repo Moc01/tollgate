@@ -3,11 +3,11 @@
  * Run via `pnpm --filter settlement dev`.
  */
 import { serve } from '@hono/node-server'
+import { generateTollgateKeyPair } from '@tollgate/shared'
 import { buildApp } from './src/app'
 import { loadConfigFromEnv } from './src/lib/config'
-import { InMemoryStore } from './src/lib/store'
 import { PostgresStore } from './src/lib/postgres-store'
-import { generateTollgateKeyPair } from '@tollgate/shared'
+import { InMemoryStore } from './src/lib/store'
 
 async function main() {
   let config = loadConfigFromEnv()
@@ -25,9 +25,7 @@ async function main() {
     }
   }
 
-  const store = config.databaseUrl
-    ? new PostgresStore(config.databaseUrl)
-    : new InMemoryStore()
+  const store = config.databaseUrl ? new PostgresStore(config.databaseUrl) : new InMemoryStore()
 
   const app = buildApp({ config, store })
 

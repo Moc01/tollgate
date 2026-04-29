@@ -3,13 +3,12 @@
  *  - independently verify that a USDC transfer matches an intent
  *  - look up the transaction's reference key
  */
-import { Connection, PublicKey } from '@solana/web3.js'
+import { Connection } from '@solana/web3.js'
 import {
   type RevenueSplit,
-  USDC_DECIMALS,
+  type SolanaNetwork,
   fromUsdcUnits,
   getUsdcMint,
-  type SolanaNetwork,
   toUsdcUnits,
 } from '@tollgate/shared'
 

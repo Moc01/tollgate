@@ -14,11 +14,11 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
-import { newsRouter } from './routers/news'
-import { githubRouter } from './routers/github'
-import { wikiRouter } from './routers/wiki'
 import { arxivRouter } from './routers/arxiv'
+import { githubRouter } from './routers/github'
+import { newsRouter } from './routers/news'
 import { solanaDocsRouter } from './routers/solana-docs'
+import { wikiRouter } from './routers/wiki'
 
 export interface ExamplesAppOptions {
   recipient: string

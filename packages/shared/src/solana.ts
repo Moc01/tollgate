@@ -1,6 +1,6 @@
 import { PublicKey } from '@solana/web3.js'
 import BigNumber from 'bignumber.js'
-import { USDC_DECIMALS, USDC_MINTS, type SolanaNetwork } from './constants'
+import { type SolanaNetwork, USDC_DECIMALS, USDC_MINTS } from './constants'
 
 /**
  * Re-export USDC mint addresses for convenience.

@@ -122,7 +122,7 @@ export class InMemoryStore implements Store {
   }
   async getIntentByChallenge(challenge: string) {
     const id = this.intentsByChallenge.get(challenge)
-    return id ? this.intents.get(id) ?? null : null
+    return id ? (this.intents.get(id) ?? null) : null
   }
   async markIntentPaid(id: string, txSignature: string) {
     const intent = this.intents.get(id)

@@ -1,3 +1,8 @@
+import {
+  DEFAULT_TOKEN_TTL_SECONDS,
+  TOLLGATE_PROTOCOL_VERSION,
+  signAccessToken,
+} from '@tollgate/shared'
 /**
  * POST /v1/confirm — return access token if payment is observed, else 202.
  *
@@ -10,11 +15,6 @@
  *   409 if intent already consumed (token already issued)
  */
 import { Hono } from 'hono'
-import {
-  DEFAULT_TOKEN_TTL_SECONDS,
-  TOLLGATE_PROTOCOL_VERSION,
-  signAccessToken,
-} from '@tollgate/shared'
 import type { AppContext } from '../app'
 import { z } from './_zod'
 

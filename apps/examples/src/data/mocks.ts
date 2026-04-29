@@ -13,7 +13,16 @@ export interface SearchHit {
   source: string
 }
 
-const SOLANA_TOPICS = ['solana', 'firedancer', 'usdc', 'depin', 'jupiter', 'phantom', 'helius', 'pyth']
+const SOLANA_TOPICS = [
+  'solana',
+  'firedancer',
+  'usdc',
+  'depin',
+  'jupiter',
+  'phantom',
+  'helius',
+  'pyth',
+]
 const AI_TOPICS = ['ai agent', 'llm', 'mcp', 'tool use', 'function calling']
 
 function matches(text: string, query: string): boolean {
@@ -33,7 +42,7 @@ export const NEWS: SearchHit[] = [
   {
     title: 'Firedancer Validator Hits Devnet with Sub-150ms Finality',
     snippet:
-      'Anza\'s Firedancer client recorded sub-150ms finality on Solana devnet during stress tests last week, validating the Alpenglow upgrade thesis.',
+      "Anza's Firedancer client recorded sub-150ms finality on Solana devnet during stress tests last week, validating the Alpenglow upgrade thesis.",
     url: 'https://solana.com/news/firedancer-devnet',
     source: 'Solana News',
   },
@@ -61,7 +70,7 @@ export const NEWS: SearchHit[] = [
   {
     title: 'BlackRock BUIDL Fund Crosses $550M on Solana',
     snippet:
-      'BlackRock\'s tokenized treasury fund BUIDL surpassed half a billion dollars in TVL on Solana in February.',
+      "BlackRock's tokenized treasury fund BUIDL surpassed half a billion dollars in TVL on Solana in February.",
     url: 'https://solana.com/news/state-of-solana-february-2026',
     source: 'State of Solana',
   },
@@ -92,8 +101,7 @@ export const GITHUB_REPOS: SearchHit[] = [
   },
   {
     title: 'helius-labs/helius-sdk',
-    snippet:
-      'TypeScript SDK for the Helius RPC and webhooks. ~640 stars.',
+    snippet: 'TypeScript SDK for the Helius RPC and webhooks. ~640 stars.',
     url: 'https://github.com/helius-labs/helius-sdk',
     source: 'GitHub',
   },
@@ -105,8 +113,7 @@ export const GITHUB_REPOS: SearchHit[] = [
   },
   {
     title: 'jup-ag/jupiter-swap-api-client',
-    snippet:
-      'TypeScript / Rust client for the Jupiter aggregator. ~1.1k stars.',
+    snippet: 'TypeScript / Rust client for the Jupiter aggregator. ~1.1k stars.',
     url: 'https://github.com/jup-ag/jupiter-swap-api-client',
     source: 'GitHub',
   },
@@ -198,7 +205,7 @@ export const ARXIV_PAPERS: SearchHit[] = [
   {
     title: 'Confidential SPL Token: Privacy-Preserving Stablecoin Payments on Solana',
     snippet:
-      'We describe Arcium\'s Confidential SPL Token standard for private payments on Solana, suitable for institutional and consumer use cases. arXiv:2602.55512',
+      "We describe Arcium's Confidential SPL Token standard for private payments on Solana, suitable for institutional and consumer use cases. arXiv:2602.55512",
     url: 'https://arxiv.org/abs/2602.55512',
     source: 'arXiv',
   },
@@ -254,8 +261,10 @@ export function searchAll(items: SearchHit[], query: string, limit = 5): SearchH
       if (item.title.toLowerCase().includes(q)) score += 3
       if (item.snippet.toLowerCase().includes(q)) score += 1
       // bonus for related topic words
-      for (const t of SOLANA_TOPICS) if (q.includes(t) && (item.title + item.snippet).toLowerCase().includes(t)) score += 1
-      for (const t of AI_TOPICS) if (q.includes(t) && (item.title + item.snippet).toLowerCase().includes(t)) score += 1
+      for (const t of SOLANA_TOPICS)
+        if (q.includes(t) && (item.title + item.snippet).toLowerCase().includes(t)) score += 1
+      for (const t of AI_TOPICS)
+        if (q.includes(t) && (item.title + item.snippet).toLowerCase().includes(t)) score += 1
       return { item, score }
     })
     .filter((s) => s.score > 0)

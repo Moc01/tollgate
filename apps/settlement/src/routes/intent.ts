@@ -1,3 +1,11 @@
+import {
+  DEFAULT_INTENT_TTL_SECONDS,
+  buildSolanaPayUrl,
+  getUsdcMint,
+  isValidSolanaAddress,
+  splitUsdcUnits,
+  toUsdcUnits,
+} from '@tollgate/shared'
 /**
  * POST /v1/intent — create a payment intent.
  *
@@ -10,15 +18,7 @@
  * in-flight intents.
  */
 import { Hono } from 'hono'
-import { type AppContext } from '../app'
-import {
-  DEFAULT_INTENT_TTL_SECONDS,
-  buildSolanaPayUrl,
-  getUsdcMint,
-  isValidSolanaAddress,
-  splitUsdcUnits,
-  toUsdcUnits,
-} from '@tollgate/shared'
+import type { AppContext } from '../app'
 import { z } from './_zod'
 
 export const intentRouter = new Hono<AppContext>()
@@ -90,16 +90,19 @@ intentRouter.post('/intent', async (c) => {
 })
 
 function buildPayUrl(
-  endpoint: { recipient: string; splits: { wallet: string; share: number }[] | null; price_usdc: string },
+  endpoint: {
+    recipient: string
+    splits: { wallet: string; share: number }[] | null
+    price_usdc: string
+  },
   challenge: string,
 ): string {
   // For multi-recipient, Solana Pay supports only one recipient in the URL.
   // We use the first split as the URL recipient (the actual transaction
   // contains all transfers; agents should construct the multi-leg tx based
   // on the splits they received in the 402 body).
-  const recipient = endpoint.splits && endpoint.splits.length > 0
-    ? endpoint.splits[0]!.wallet
-    : endpoint.recipient
+  const recipient =
+    endpoint.splits && endpoint.splits.length > 0 ? endpoint.splits[0]!.wallet : endpoint.recipient
 
   const totalUnits = toUsdcUnits(endpoint.price_usdc)
   const amountInUsdc = endpoint.price_usdc
@@ -119,5 +122,7 @@ function randomId(): string {
   // 16 random bytes → base36
   const bytes = new Uint8Array(16)
   crypto.getRandomValues(bytes)
-  return Array.from(bytes, (b) => b.toString(36)).join('').slice(0, 18)
+  return Array.from(bytes, (b) => b.toString(36))
+    .join('')
+    .slice(0, 18)
 }

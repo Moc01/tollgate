@@ -1,7 +1,4 @@
-import {
-  DEFAULT_TOLLGATE_ISSUER,
-  type SolanaNetwork,
-} from '@tollgate/shared'
+import { DEFAULT_TOLLGATE_ISSUER, type SolanaNetwork } from '@tollgate/shared'
 
 export interface AppConfig {
   /** Where the settlement service is publicly hosted. */

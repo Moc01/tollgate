@@ -1,5 +1,5 @@
-import { NextRequest } from 'next/server'
 import { runCurioAgent } from '@/lib/agent'
+import type { NextRequest } from 'next/server'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60

@@ -3,12 +3,10 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Curio — AI search powered by Tollgate',
-  description:
-    'Ask anything. Watch your AI pay per source in USDC, on Solana, in real time.',
+  description: 'Ask anything. Watch your AI pay per source in USDC, on Solana, in real time.',
   openGraph: {
     title: 'Curio',
-    description:
-      'AI search agent powered by Tollgate. Per-source on-chain USDC settlement.',
+    description: 'AI search agent powered by Tollgate. Per-source on-chain USDC settlement.',
     type: 'website',
   },
 }

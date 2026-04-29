@@ -1,8 +1,4 @@
-import {
-  generateTollgateKeyPair,
-  signAccessToken,
-  USDC_MINT_DEVNET,
-} from '@tollgate/shared'
+import { USDC_MINT_DEVNET, generateTollgateKeyPair, signAccessToken } from '@tollgate/shared'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { evaluateRequest, extractBearer, resolveConfig } from '../src/core'
 

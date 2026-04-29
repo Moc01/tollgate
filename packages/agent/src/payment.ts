@@ -1,22 +1,22 @@
 import {
-  ComputeBudgetProgram,
-  Connection,
-  PublicKey,
-  Transaction,
-  type Keypair,
-} from '@solana/web3.js'
-import {
   createAssociatedTokenAccountIdempotentInstruction,
   createTransferCheckedInstruction,
   getAssociatedTokenAddress,
 } from '@solana/spl-token'
 import {
+  ComputeBudgetProgram,
+  type Connection,
+  type Keypair,
+  PublicKey,
+  Transaction,
+} from '@solana/web3.js'
+import {
   type RevenueSplit,
+  type Tollgate402Body,
   USDC_DECIMALS,
   getUsdcMint,
   splitUsdcUnits,
   toUsdcUnits,
-  type Tollgate402Body,
 } from '@tollgate/shared'
 
 /**
@@ -102,7 +102,8 @@ export async function buildPaymentTransaction(params: {
   tx.recentBlockhash = blockhash
   tx.feePayer = payer.publicKey
   // We track these for poll-after-send; web3.js uses them when serializing
-  ;(tx as Transaction & { lastValidBlockHeight?: number }).lastValidBlockHeight = lastValidBlockHeight
+  ;(tx as Transaction & { lastValidBlockHeight?: number }).lastValidBlockHeight =
+    lastValidBlockHeight
 
   return tx
 }
@@ -110,9 +111,7 @@ export async function buildPaymentTransaction(params: {
 /**
  * Convenience: derive a Solana network identifier from a Tollgate-402 body.
  */
-export function networkFromTollgateBody(
-  body: Tollgate402Body,
-): 'mainnet-beta' | 'devnet' {
+export function networkFromTollgateBody(body: Tollgate402Body): 'mainnet-beta' | 'devnet' {
   switch (body.tollgate.network) {
     case 'solana-mainnet-beta':
       return 'mainnet-beta'

@@ -1,3 +1,4 @@
+import { isValidSolanaAddress } from '@tollgate/shared'
 /**
  * POST /v1/endpoints — register or update an endpoint.
  *
@@ -6,7 +7,6 @@
  * gated on the TOLLGATE_DASHBOARD_API_KEY env var.
  */
 import { Hono } from 'hono'
-import { isValidSolanaAddress } from '@tollgate/shared'
 import type { AppContext } from '../app'
 import { z } from './_zod'
 

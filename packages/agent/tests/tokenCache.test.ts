@@ -1,6 +1,6 @@
+import { USDC_MINT_DEVNET, generateTollgateKeyPair, signAccessToken } from '@tollgate/shared'
 import { describe, expect, it } from 'vitest'
 import { TokenCache } from '../src/tokenCache'
-import { generateTollgateKeyPair, signAccessToken, USDC_MINT_DEVNET } from '@tollgate/shared'
 
 describe('TokenCache', () => {
   it('stores and retrieves a token by endpointId', async () => {

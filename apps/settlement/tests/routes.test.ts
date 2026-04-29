@@ -1,3 +1,4 @@
+import { Keypair } from '@solana/web3.js'
 /**
  * End-to-end-ish tests for the settlement routes.
  * Uses InMemoryStore and a freshly generated keypair.
@@ -15,9 +16,8 @@ import {
   generateTollgateKeyPair,
   verifyAccessTokenWithPem,
 } from '@tollgate/shared'
-import { Keypair } from '@solana/web3.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { buildApp, type AppContext } from '../src/app'
+import { buildApp } from '../src/app'
 import type { AppConfig } from '../src/lib/config'
 import { InMemoryStore } from '../src/lib/store'
 
@@ -61,7 +61,12 @@ beforeEach(async () => {
   app = buildApp({ config, store })
 })
 
-async function postJson(app: ReturnType<typeof buildApp>, path: string, body: unknown, headers: Record<string, string> = {}) {
+async function postJson(
+  app: ReturnType<typeof buildApp>,
+  path: string,
+  body: unknown,
+  headers: Record<string, string> = {},
+) {
   return app.fetch(
     new Request(`http://test${path}`, {
       method: 'POST',
@@ -183,7 +188,11 @@ describe('POST /v1/confirm', () => {
     // Now confirm should return 200 with token
     const cr = await postJson(app, '/v1/confirm', { intent_id })
     expect(cr.status).toBe(200)
-    const body = (await cr.json()) as { access_token: string; tx_signature: string; expires_in: number }
+    const body = (await cr.json()) as {
+      access_token: string
+      tx_signature: string
+      expires_in: number
+    }
     expect(body.access_token).toBeTruthy()
     expect(body.tx_signature).toBe('5HfTestSig111')
     expect(body.expires_in).toBeGreaterThan(0)

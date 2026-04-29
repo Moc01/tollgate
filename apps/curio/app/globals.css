@@ -8,23 +8,29 @@
   --border: #1f1f25;
   --muted: #777783;
   --text: #f4f4f6;
-  --accent: #9945FF;
-  --accent2: #14F195;
+  --accent: #9945ff;
+  --accent2: #14f195;
 }
 
-html, body {
+html,
+body {
   background: var(--bg);
   color: var(--text);
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(20, 241, 149, 0.0); }
-  50% { box-shadow: 0 0 24px 4px rgba(20, 241, 149, 0.4); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(20, 241, 149, 0.0);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px rgba(20, 241, 149, 0.4);
+  }
 }
 
 .pulse-paid {
@@ -32,8 +38,14 @@ body {
 }
 
 @keyframes count-up {
-  from { transform: translateY(8px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .count-up {
@@ -45,7 +57,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #9945FF 0%, #14F195 100%);
+  background: linear-gradient(90deg, #9945ff 0%, #14f195 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

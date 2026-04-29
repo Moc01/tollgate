@@ -14,7 +14,7 @@
  * Usage: pnpm tg:e2e
  */
 import { Keypair } from '@solana/web3.js'
-import { generateReferenceKey, USDC_MINT_DEVNET } from '@tollgate/shared'
+import { USDC_MINT_DEVNET } from '@tollgate/shared'
 
 const SETTLEMENT = process.env.TOLLGATE_SETTLEMENT_URL ?? 'http://localhost:3001'
 const EXAMPLES = process.env.EXAMPLES_BASE_URL ?? 'http://localhost:4001'
@@ -84,12 +84,7 @@ async function main() {
         signature: 'TEST_SIG_' + Date.now(),
         transaction: {
           message: {
-            accountKeys: [
-              agentPubkey,
-              recipient,
-              body.tollgate.challenge,
-              USDC_MINT_DEVNET,
-            ],
+            accountKeys: [agentPubkey, recipient, body.tollgate.challenge, USDC_MINT_DEVNET],
           },
         },
         tokenTransfers: [

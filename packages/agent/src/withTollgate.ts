@@ -1,21 +1,18 @@
-import { Connection, Keypair } from '@solana/web3.js'
+import { Connection, type Keypair } from '@solana/web3.js'
 import {
   type AgentConfig,
   BudgetExceededError,
   type ClientPaymentIntent,
   type ConfirmResponse,
   Invalid402BodyError,
-  type Tollgate402Body,
   SettlementError,
+  type Tollgate402Body,
 } from '@tollgate/shared'
 import { buildPaymentTransaction, networkFromTollgateBody } from './payment'
 import { TokenCache } from './tokenCache'
 
 /** Augment a Fetch-compatible function with Tollgate-402 auto-payment. */
-export function withTollgate(
-  innerFetch: typeof fetch,
-  config: AgentConfig,
-): typeof fetch {
+export function withTollgate(innerFetch: typeof fetch, config: AgentConfig): typeof fetch {
   const cache = new TokenCache()
   const totalSpentRef = { value: 0 }
   const maxConfirmPolls = config.maxConfirmPolls ?? 30
@@ -31,7 +28,10 @@ export function withTollgate(
     if (response.status !== 402) return response
 
     // Parse 402 body
-    const body = (await response.clone().json().catch(() => null)) as Tollgate402Body | null
+    const body = (await response
+      .clone()
+      .json()
+      .catch(() => null)) as Tollgate402Body | null
     if (!body || !body.tollgate || !body.tollgate.endpoint_id) {
       throw new Invalid402BodyError('Response was 402 but body missing tollgate field')
     }
@@ -81,7 +81,7 @@ export function withTollgate(
     if (!keypair) {
       throw new Error(
         'AgentConfig.wallet must include a keypair (e.g. via keypairWallet()). ' +
-        'External signers are planned for v0.2.',
+          'External signers are planned for v0.2.',
       )
     }
 

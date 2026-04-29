@@ -34,8 +34,7 @@ export class BudgetExceededError extends TollgateError {
   ) {
     super(
       'budget_exceeded',
-      message ??
-        `Price ${priceUsdc} USDC exceeds configured limit ${limitUsdc} USDC`,
+      message ?? `Price ${priceUsdc} USDC exceeds configured limit ${limitUsdc} USDC`,
     )
   }
 }

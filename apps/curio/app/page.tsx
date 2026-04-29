@@ -20,7 +20,8 @@ export default function Home() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
-          Ask anything. Watch your <span className="gradient-text">AI pay per source</span>, in real time.
+          Ask anything. Watch your <span className="gradient-text">AI pay per source</span>, in real
+          time.
         </h1>
         <p className="mt-4 text-muted text-lg">
           An AI research assistant where every source is a paid API. Each citation comes with a

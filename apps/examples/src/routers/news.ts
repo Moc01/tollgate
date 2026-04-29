@@ -1,5 +1,5 @@
-import { Hono } from 'hono'
 import { tollgate } from '@tollgate/middleware/hono'
+import { Hono } from 'hono'
 import { NEWS, searchAll } from '../data/mocks'
 
 export function newsRouter(opts: { recipient: string; settlementUrl: string }) {

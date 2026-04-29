@@ -29,9 +29,7 @@ import { evaluateRequest, resolveConfig } from './core'
  * }
  * ```
  */
-export function tollgate(
-  opts: MiddlewareConfig,
-): (req: Request) => Promise<Response | null> {
+export function tollgate(opts: MiddlewareConfig): (req: Request) => Promise<Response | null> {
   const config = resolveConfig(opts)
 
   return async (req) => {

@@ -72,10 +72,7 @@ export interface WrappedTool {
  * }
  * ```
  */
-export function wrapAnthropicTools(
-  tools: PaidTool[],
-  config: AgentConfig,
-): WrappedTool[] {
+export function wrapAnthropicTools(tools: PaidTool[], config: AgentConfig): WrappedTool[] {
   const paidFetch = withTollgate(globalThis.fetch, config)
 
   return tools.map((tool) => ({

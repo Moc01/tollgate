@@ -1,6 +1,6 @@
 import { Keypair, type Transaction, type VersionedTransaction } from '@solana/web3.js'
-import bs58 from 'bs58'
 import type { AgentWallet } from '@tollgate/shared'
+import bs58 from 'bs58'
 
 /**
  * Wrap a Solana Keypair as an AgentWallet.

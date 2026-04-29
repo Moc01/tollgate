@@ -3,7 +3,7 @@
  * is one of the 5 Tollgate-paid example APIs.
  */
 import Anthropic from '@anthropic-ai/sdk'
-import { Connection, Keypair } from '@solana/web3.js'
+import { Keypair } from '@solana/web3.js'
 import { keypairWallet, withTollgate } from '@tollgate/agent'
 import { walletFromBase58 } from '@tollgate/agent/wallet'
 import { CURIO_TOOLS, toolByName } from './tools'
@@ -73,9 +73,7 @@ export async function runCurioAgent(args: {
     input_schema: t.input_schema as Record<string, unknown> & { type: 'object' },
   }))
 
-  const messages: Anthropic.MessageParam[] = [
-    { role: 'user', content: query },
-  ]
+  const messages: Anthropic.MessageParam[] = [{ role: 'user', content: query }]
 
   await emit({ type: 'thinking' })
 
@@ -169,9 +167,7 @@ export async function runCurioAgent(args: {
           }
 
           const json = (await res.json()) as { results?: unknown[]; article?: unknown }
-          const count =
-            (json.results as unknown[] | undefined)?.length ??
-            (json.article ? 1 : 0)
+          const count = (json.results as unknown[] | undefined)?.length ?? (json.article ? 1 : 0)
 
           // We don't know the on-chain tx signature here unless we use onPayment;
           // emit a paid event with empty signature for UI purposes.

@@ -33,10 +33,7 @@ export interface WrappedFunction {
   run: (input: Record<string, unknown>) => Promise<unknown>
 }
 
-export function wrapOpenAIFunctions(
-  fns: PaidFunction[],
-  config: AgentConfig,
-): WrappedFunction[] {
+export function wrapOpenAIFunctions(fns: PaidFunction[], config: AgentConfig): WrappedFunction[] {
   const paidFetch = withTollgate(globalThis.fetch, config)
 
   return fns.map((fn) => ({
