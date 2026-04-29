@@ -3,10 +3,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["scripts/**/*"],
-  "references": [
-    { "path": "./packages/shared" },
-    { "path": "./packages/middleware" },
-    { "path": "./packages/agent" }
-  ]
+  "include": ["scripts/**/*"]
 }
