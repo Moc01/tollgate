@@ -1,0 +1,27 @@
+{
+  "name": "examples",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Five mock paid APIs protected by @tollgate/middleware. Used by Curio.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch dev-server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.2",
+    "@tollgate/middleware": "workspace:*",
+    "@tollgate/shared": "workspace:*",
+    "@vercel/node": "^3.2.24",
+    "hono": "^4.6.5"
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^1.95.4",
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.3"
+  }
+}
