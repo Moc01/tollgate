@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch dev-server.ts",
+    "build": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "deploy": "vercel --prod"

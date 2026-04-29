@@ -16,8 +16,8 @@
   },
   "packageManager": "pnpm@9.12.0",
   "scripts": {
-    "build": "pnpm -r --filter './packages/*' build",
-    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r --filter './packages/*' build && pnpm --filter curio build",
+    "dev": "tsx scripts/dev-all.ts",
     "typecheck": "pnpm -r typecheck",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -27,9 +27,9 @@
     "tg:keygen": "tsx scripts/keygen.ts",
     "tg:airdrop-usdc": "tsx scripts/airdrop-usdc.ts",
     "tg:e2e": "tsx scripts/e2e.ts",
-    "db:generate": "pnpm --filter shared db:generate",
-    "db:migrate": "pnpm --filter shared db:migrate",
-    "db:seed": "pnpm --filter shared db:seed"
+    "db:generate": "pnpm --filter @tollgate/shared db:generate",
+    "db:migrate": "pnpm --filter @tollgate/shared db:migrate",
+    "db:seed": "pnpm --filter @tollgate/shared db:seed"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
