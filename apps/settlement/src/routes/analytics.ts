@@ -3,10 +3,16 @@
  *   GET /v1/endpoints/:id/calls   — recent calls for an endpoint
  *   GET /v1/endpoints/:id/ledger  — recent ledger entries
  *   GET /v1/endpoints/:id/stats   — aggregated daily totals
+ *   GET /v1/stats/overview        — totals across all endpoints
  *
  * MVP scope: powered by InMemoryStore via simple iteration, or by
  * Postgres queries when DATABASE_URL is set. We expose enough for the
  * dashboard's revenue chart and recent-calls table.
+ *
+ * NOTE: when calling helper methods like `_allCalls`/`_allLedger` on the
+ * store, we MUST call them on the store object itself (e.g. `store._allCalls()`)
+ * rather than destructuring into a local variable, otherwise `this` is lost
+ * and the method throws when accessing instance fields.
  */
 import { Hono } from 'hono'
 import type { AppContext } from '../app'
@@ -30,45 +36,40 @@ interface LedgerSummary {
   recordedAt: string
 }
 
+type StoreWithHelpers = {
+  _allCalls?: () => CallSummary[]
+  _allLedger?: () => LedgerSummary[]
+  listEndpoints: (ownerId?: string) => Promise<{ id: string; active: boolean }[]>
+}
+
 analyticsRouter.get('/endpoints/:id/calls', async (c) => {
-  const store = c.get('store') as unknown as {
-    _allCalls?: () => CallSummary[]
-  }
+  const store = c.get('store') as unknown as StoreWithHelpers
   const endpointId = c.req.param('id')
   const limit = Math.min(Number(c.req.query('limit') ?? 50), 200)
 
-  // For InMemoryStore we expose _allCalls; for Postgres we'd query.
-  // We keep it tolerant: if neither shape works, return empty array.
-  const fn = (store as { _allCalls?: () => CallSummary[] })._allCalls
   let calls: CallSummary[] = []
-  if (typeof fn === 'function') {
-    calls = fn().filter((c) => c.endpointId === endpointId)
+  if (typeof store._allCalls === 'function') {
+    calls = store._allCalls().filter((row) => row.endpointId === endpointId)
   }
   calls.sort((a, b) => b.calledAt.localeCompare(a.calledAt))
   return c.json({ calls: calls.slice(0, limit) })
 })
 
 analyticsRouter.get('/endpoints/:id/ledger', async (c) => {
-  const store = c.get('store') as unknown as {
-    _allLedger?: () => LedgerSummary[]
-  }
+  const store = c.get('store') as unknown as StoreWithHelpers
   const endpointId = c.req.param('id')
   const limit = Math.min(Number(c.req.query('limit') ?? 50), 200)
 
-  const fn = store._allLedger
   let entries: LedgerSummary[] = []
-  if (typeof fn === 'function') {
-    entries = fn().filter((e) => e.endpointId === endpointId)
+  if (typeof store._allLedger === 'function') {
+    entries = store._allLedger().filter((e) => e.endpointId === endpointId)
   }
   entries.sort((a, b) => (b.recordedAt ?? '').localeCompare(a.recordedAt ?? ''))
   return c.json({ entries: entries.slice(0, limit) })
 })
 
 analyticsRouter.get('/endpoints/:id/stats', async (c) => {
-  const store = c.get('store') as unknown as {
-    _allLedger?: () => LedgerSummary[]
-    _allCalls?: () => CallSummary[]
-  }
+  const store = c.get('store') as unknown as StoreWithHelpers
   const endpointId = c.req.param('id')
 
   let totalUsdc = 0
@@ -76,9 +77,8 @@ analyticsRouter.get('/endpoints/:id/stats', async (c) => {
   const dailyMap = new Map<string, { day: string; usdc: number; calls: number }>()
   const callerMap = new Map<string, number>()
 
-  const ledgerFn = store._allLedger
-  if (typeof ledgerFn === 'function') {
-    for (const entry of ledgerFn()) {
+  if (typeof store._allLedger === 'function') {
+    for (const entry of store._allLedger()) {
       if (entry.endpointId !== endpointId) continue
       const amt = Number(entry.amountUsdc)
       totalUsdc += amt
@@ -89,9 +89,8 @@ analyticsRouter.get('/endpoints/:id/stats', async (c) => {
     }
   }
 
-  const callsFn = store._allCalls
-  if (typeof callsFn === 'function') {
-    for (const call of callsFn()) {
+  if (typeof store._allCalls === 'function') {
+    for (const call of store._allCalls()) {
       if (call.endpointId !== endpointId) continue
       totalCalls++
       const day = call.calledAt.slice(0, 10)
@@ -118,22 +117,16 @@ analyticsRouter.get('/endpoints/:id/stats', async (c) => {
 })
 
 analyticsRouter.get('/stats/overview', async (c) => {
-  const store = c.get('store') as unknown as {
-    _allLedger?: () => LedgerSummary[]
-    _allCalls?: () => CallSummary[]
-    listEndpoints: (ownerId?: string) => Promise<{ id: string; active: boolean }[]>
-  }
+  const store = c.get('store') as unknown as StoreWithHelpers
 
   let totalUsdc = 0
   let totalCalls = 0
 
-  const ledgerFn = store._allLedger
-  if (typeof ledgerFn === 'function') {
-    for (const entry of ledgerFn()) totalUsdc += Number(entry.amountUsdc)
+  if (typeof store._allLedger === 'function') {
+    for (const entry of store._allLedger()) totalUsdc += Number(entry.amountUsdc)
   }
-  const callsFn = store._allCalls
-  if (typeof callsFn === 'function') {
-    for (const _ of callsFn()) totalCalls++
+  if (typeof store._allCalls === 'function') {
+    for (const _ of store._allCalls()) totalCalls++
   }
 
   const endpoints = await store.listEndpoints()

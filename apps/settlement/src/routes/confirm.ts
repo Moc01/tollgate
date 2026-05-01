@@ -84,6 +84,19 @@ confirmRouter.post('/confirm', async (c) => {
         // ignore unique-constraint conflict (idempotency)
       })
 
+    // Record an authorized-call entry so the dashboard's call counters
+    // reflect token issuance (each token = one authorized API call in v0.1).
+    await store
+      .recordCall({
+        endpointId: intent.endpoint_id,
+        intentId: intent.id,
+        agentPubkey: intent.agent_pubkey ?? '',
+        priceUsdc: intent.price_usdc,
+      })
+      .catch(() => {
+        // best-effort
+      })
+
     return c.json({
       access_token: accessToken,
       token_type: 'Bearer' as const,
