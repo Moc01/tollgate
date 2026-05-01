@@ -29,11 +29,11 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Typecheck
-        run: pnpm typecheck
+      - name: Build packages (first — produces .d.ts that consumers need)
+        run: pnpm -r --filter './packages/*' build
 
-      - name: Build packages
-        run: pnpm build
+      - name: Typecheck (uses built .d.ts from packages/*)
+        run: pnpm typecheck
 
       - name: Test
         run: pnpm test
