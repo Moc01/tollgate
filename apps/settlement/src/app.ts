@@ -16,6 +16,7 @@ import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import type { AppConfig } from './lib/config'
 import type { Store } from './lib/store'
+import { analyticsRouter } from './routes/analytics'
 import { confirmRouter } from './routes/confirm'
 import { endpointsRouter } from './routes/endpoints'
 import { intentRouter } from './routes/intent'
@@ -56,6 +57,7 @@ export function buildApp(deps: { config: AppConfig; store: Store }): Hono<AppCon
   app.route('/v1', jwksRouter)
   app.route('/v1', webhookRouter)
   app.route('/v1', endpointsRouter)
+  app.route('/v1', analyticsRouter)
 
   return app
 }

@@ -179,11 +179,14 @@ export class InMemoryStore implements Store {
     this.ledger.push(args)
   }
 
-  // Test helpers
+  // Test / dashboard helpers
   _allIntents() {
     return Array.from(this.intents.values())
   }
   _allLedger() {
-    return [...this.ledger]
+    return [...this.ledger].map((e) => ({ ...e, recordedAt: new Date().toISOString() }))
+  }
+  _allCalls() {
+    return [...this.calls]
   }
 }
