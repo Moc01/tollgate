@@ -73,34 +73,49 @@ export function withTollgate(innerFetch: typeof fetch, config: AgentConfig): typ
     // 1. Create intent
     const intent = await createIntent(body, config.wallet.publicKey)
 
-    // 2. Build, sign, submit Solana payment
-    const network = networkFromTollgateBody(body)
-    const connection = new Connection(config.rpcUrl, 'confirmed')
+    // 2. Submit payment — either real on-chain (production) or simulated (dev)
+    let txSignature: string
+    if (config.simulatePayment) {
+      // DEV ONLY: synthesize a webhook event directly to settlement.
+      // Requires settlement to have TOLLGATE_SKIP_ONCHAIN_VERIFY=true.
+      txSignature = `SIM_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`
+      await postSimulatedWebhook({
+        settlementUrl: body.tollgate.settlement,
+        signature: txSignature,
+        agentPubkey: config.wallet.publicKey,
+        recipient: addressFromPayUrl(intent.pay_url),
+        challenge: body.tollgate.challenge,
+        priceUsdc: body.tollgate.price,
+      })
+    } else {
+      // Real on-chain Solana transfer
+      const network = networkFromTollgateBody(body)
+      const connection = new Connection(config.rpcUrl, 'confirmed')
 
-    const keypair = (config.wallet as { keypair?: Keypair }).keypair
-    if (!keypair) {
-      throw new Error(
-        'AgentConfig.wallet must include a keypair (e.g. via keypairWallet()). ' +
-          'External signers are planned for v0.2.',
-      )
+      const keypair = (config.wallet as { keypair?: Keypair }).keypair
+      if (!keypair) {
+        throw new Error(
+          'AgentConfig.wallet must include a keypair (e.g. via keypairWallet()). ' +
+            'External signers are planned for v0.2.',
+        )
+      }
+
+      const tx = await buildPaymentTransaction({
+        connection,
+        payer: keypair,
+        recipient: addressFromPayUrl(intent.pay_url),
+        splits: body.tollgate.splits ?? null,
+        amountUsdc: body.tollgate.price,
+        reference: body.tollgate.challenge,
+        network,
+      })
+
+      tx.sign(keypair)
+      txSignature = await connection.sendRawTransaction(tx.serialize(), {
+        skipPreflight: false,
+        maxRetries: 3,
+      })
     }
-
-    const tx = await buildPaymentTransaction({
-      connection,
-      payer: keypair,
-      recipient: addressFromPayUrl(intent.pay_url),
-      splits: body.tollgate.splits ?? null,
-      amountUsdc: body.tollgate.price,
-      reference: body.tollgate.challenge,
-      network,
-    })
-
-    // Sign + send
-    tx.sign(keypair)
-    const txSignature = await connection.sendRawTransaction(tx.serialize(), {
-      skipPreflight: false,
-      maxRetries: 3,
-    })
 
     // 3. Poll settlement until paid
     const token = await pollConfirm({
@@ -170,6 +185,42 @@ async function createIntent(
     throw new SettlementError(res.status, `intent creation failed: ${await res.text()}`)
   }
   return (await res.json()) as ClientPaymentIntent
+}
+
+async function postSimulatedWebhook(args: {
+  settlementUrl: string
+  signature: string
+  agentPubkey: string
+  recipient: string
+  challenge: string
+  priceUsdc: string
+}): Promise<void> {
+  const url = `${args.settlementUrl.replace(/\/$/, '')}/v1/webhook/helius`
+  const event = [
+    {
+      signature: args.signature,
+      transaction: {
+        message: {
+          accountKeys: [args.agentPubkey, args.recipient, args.challenge],
+        },
+      },
+      tokenTransfers: [
+        {
+          fromUserAccount: args.agentPubkey,
+          toUserAccount: args.recipient,
+          tokenAmount: Number(args.priceUsdc),
+        },
+      ],
+    },
+  ]
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(event),
+  })
+  if (!res.ok) {
+    throw new SettlementError(res.status, `simulated webhook failed: ${await res.text()}`)
+  }
 }
 
 async function pollConfirm(args: {

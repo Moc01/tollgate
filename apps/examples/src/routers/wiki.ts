@@ -15,7 +15,7 @@ export function wikiRouter(opts: { recipient: string; settlementUrl: string }) {
     }),
   )
 
-  app.get('/', (c) => {
+  app.get('/*', (c) => {
     const q = c.req.query('q') ?? c.req.query('topic') ?? ''
     const article = searchWiki(q)
     if (!article) {

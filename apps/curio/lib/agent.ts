@@ -57,9 +57,11 @@ export async function runCurioAgent(args: {
     network: 'devnet',
     maxPricePerCall: 0.05,
     maxTotalSpend: 0.2,
+    // In dev (no funded wallet), simulate the payment leg. Production should
+    // unset this so real on-chain settlement happens.
+    simulatePayment: process.env.CURIO_SIMULATE_PAYMENTS !== 'false',
     onPayment: async (info) => {
-      // We emit paid events from the tool runner so we can tie it to a specific
-      // tool_call_id. This onPayment is a fallback if needed.
+      // emitted from tool runner with proper id
     },
   })
 

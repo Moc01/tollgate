@@ -15,7 +15,7 @@ export function solanaDocsRouter(opts: { recipient: string; settlementUrl: strin
     }),
   )
 
-  app.get('/', (c) => {
+  app.get('/*', (c) => {
     const q = c.req.query('q') ?? ''
     const limit = Math.min(Number(c.req.query('limit') ?? 3), 5)
     const results = searchAll(SOLANA_DOCS, q, limit)

@@ -15,7 +15,7 @@ export function githubRouter(opts: { recipient: string; settlementUrl: string })
     }),
   )
 
-  app.get('/', (c) => {
+  app.get('/*', (c) => {
     const q = c.req.query('q') ?? ''
     const limit = Math.min(Number(c.req.query('limit') ?? 5), 10)
     const results = searchAll(GITHUB_REPOS, q, limit)

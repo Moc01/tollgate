@@ -20,8 +20,8 @@ function loadEnvLocal() {
     for (const line of txt.split('\n')) {
       const m = line.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/)
       if (!m) continue
-      const key = m[1]
-      let value = m[2]
+      const key = m[1]!
+      let value = m[2] ?? ''
       // Strip wrapping quotes; convert literal \n to newline (PEM keys use this)
       if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
         value = value.slice(1, -1)

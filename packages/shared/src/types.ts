@@ -131,6 +131,13 @@ export interface AgentConfig {
   maxConfirmPolls?: number
   /** Delay between confirm polls in ms. Default 500. */
   confirmPollDelayMs?: number
+  /**
+   * If true, skip the actual Solana on-chain transaction and instead POST a
+   * synthesized webhook event directly to the settlement service. The
+   * settlement service's TOLLGATE_SKIP_ONCHAIN_VERIFY=true must be set.
+   * For local dev / e2e tests only — production must use real on-chain.
+   */
+  simulatePayment?: boolean
 }
 
 /** Subset of Solana Keypair functionality the agent needs. */
