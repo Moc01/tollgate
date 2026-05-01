@@ -96,21 +96,24 @@ webhookRouter.post('/webhook/helius', async (c) => {
       continue
     }
 
-    // Independent on-chain verification
-    const verify = await verifyPayment({
-      rpcUrl: config.heliusRpcUrl,
-      network: config.network,
-      txSignature: signature,
-      expected: {
-        referenceKey: matched.challenge,
-        recipient: matched.recipient,
-        splits: matched.splits,
-        priceUsdc: matched.price_usdc,
-      },
-    })
-    if (!verify.ok) {
-      processed.push({ signature, status: 'failed', reason: verify.reason })
-      continue
+    // Independent on-chain verification (skipped only when explicitly opted out
+    // via TOLLGATE_SKIP_ONCHAIN_VERIFY=true — for local dev / e2e tests).
+    if (process.env.TOLLGATE_SKIP_ONCHAIN_VERIFY !== 'true') {
+      const verify = await verifyPayment({
+        rpcUrl: config.heliusRpcUrl,
+        network: config.network,
+        txSignature: signature,
+        expected: {
+          referenceKey: matched.challenge,
+          recipient: matched.recipient,
+          splits: matched.splits,
+          priceUsdc: matched.price_usdc,
+        },
+      })
+      if (!verify.ok) {
+        processed.push({ signature, status: 'failed', reason: verify.reason })
+        continue
+      }
     }
 
     const updated = await store.markIntentPaid(matched.id, signature)
