@@ -4,7 +4,7 @@
   "private": true,
   "description": "Tollgate Dashboard — register endpoints, view revenue, monitor calls.",
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3000 --turbopack",
     "build": "next build",
     "start": "next start -p 3000",
     "typecheck": "tsc --noEmit",

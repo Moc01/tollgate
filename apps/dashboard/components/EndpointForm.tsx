@@ -31,7 +31,7 @@ export function EndpointForm() {
         <input
           name="id"
           required
-          pattern="[a-z0-9-]+"
+          pattern="[a-z0-9\-]+"
           maxLength={64}
           placeholder="my-search-v1"
           className="input"
