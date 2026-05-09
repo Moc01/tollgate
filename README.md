@@ -122,7 +122,13 @@ Curio is a Perplexity-like search agent built on Tollgate. Every source it queri
 
 **Curio** 是一个建立在 Tollgate 之上的搜索智能体（类似 Perplexity）。它查询的每个数据源都是付费 API，每次回答都附带透明的成本明细——在 Solana 上结算，链上可审计。
 
-Live demo: TBD / 在线演示：待部署
+**🌐 Live demo:** [https://tollgate-curio-l5oj1hk53-mocs-projects-7cf9b6e6.vercel.app](https://tollgate-curio-l5oj1hk53-mocs-projects-7cf9b6e6.vercel.app)
+
+The demo bundles the Curio frontend, the settlement service (`/api/v1/*`), and the 5 paid mock APIs (`/api/examples/*`) into a single Next.js deployment. Payments run on Solana **devnet** in simulated mode (`CURIO_SIMULATE_PAYMENTS=true`) — the agent goes through the full HTTP-402 flow (intent → webhook → JWT → retry) without spending real funds. Flip the env flag to `false` and fund the agent wallet to exercise real on-chain settlement.
+
+**🌐 在线演示：** 上方链接
+
+整个 demo 把 Curio 前端、settlement 服务（`/api/v1/*`）以及 5 个付费 mock API（`/api/examples/*`）打包成一个 Next.js 部署。当前在 Solana **devnet** 模拟支付模式（`CURIO_SIMULATE_PAYMENTS=true`），agent 会跑完整 HTTP-402 流程（intent → webhook → JWT → 重试）但不花真钱；切换 env 为 `false` 并给 agent 钱包充值即可走真链结算。
 
 ---
 

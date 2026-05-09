@@ -52,8 +52,10 @@ function buildOnce(req: Request) {
 
 function stripExamplesPrefix(req: Request): Request {
   const url = new URL(req.url)
-  // Next gives us /api/examples/news/... — examples Hono expects /api/news/...
-  url.pathname = url.pathname.replace(/^\/api\/examples/, '/api')
+  // Next.js gives us /api/examples/<rest>. The examples Hono app's routes
+  // already start with /api/* (e.g. /api/news), so we just strip /api/examples
+  // and let whatever came after be matched by Hono.
+  url.pathname = url.pathname.replace(/^\/api\/examples/, '') || '/'
   return new Request(url.toString(), req)
 }
 

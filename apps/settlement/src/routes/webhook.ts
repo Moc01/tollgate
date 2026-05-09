@@ -24,8 +24,10 @@ webhookRouter.post('/webhook/helius', async (c) => {
 
   const rawBody = await c.req.text()
 
-  // HMAC verification (skipped if no secret configured — DEV ONLY)
-  if (config.heliusWebhookSecret) {
+  // HMAC verification (skipped if no secret configured OR when running in
+  // dev/simulated mode where TOLLGATE_SKIP_ONCHAIN_VERIFY=true is set).
+  const skipVerify = process.env.TOLLGATE_SKIP_ONCHAIN_VERIFY === 'true'
+  if (config.heliusWebhookSecret && !skipVerify) {
     const auth = c.req.header('authorization') ?? c.req.header('Authorization')
     if (!auth) return c.json({ error: 'missing_signature' }, 401)
     const expected = `Bearer ${config.heliusWebhookSecret}`

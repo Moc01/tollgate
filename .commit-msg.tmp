@@ -1,0 +1,26 @@
+feat: end-to-end live demo on Vercel
+
+Curio is now reachable at a single Vercel URL with the full Tollgate-402
+flow working in simulated payment mode:
+  - 402 challenge from /api/examples/api/* (paywall middleware)
+  - intent created via /api/v1/intent
+  - simulated webhook accepted at /api/v1/webhook/helius
+  - JWT issued from /api/v1/confirm
+  - paid retry returns mock data with citations
+
+Three coordinated changes:
+
+1) shared in-process store (apps/curio/lib/shared-store.ts) keeps the
+   InMemoryStore on globalThis so warm Vercel invocations across the
+   /api/v1/* and /api/examples/* handlers see the same state. Pre-seeds
+   the 5 known endpoints synchronously on cold start so the very first
+   /v1/intent works without waiting on examples to register.
+
+2) HMAC bypass in webhook handler when TOLLGATE_SKIP_ONCHAIN_VERIFY=true
+   (the existing dev/sim flag). Avoids leaking the webhook secret into
+   the agent SDK for simulated payments.
+
+3) examples-prefix stripping fix: /api/examples/api/news is rewritten
+   to /api/news for the examples Hono app (was rewriting to /api/api/news).
+
+README live-demo URL added.
