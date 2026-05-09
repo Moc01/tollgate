@@ -4,9 +4,14 @@
   "private": true,
   "description": "Tollgate settlement service — issues access tokens after observing on-chain USDC payments.",
   "type": "module",
+  "exports": {
+    "./app": "./src/app.ts",
+    "./config": "./src/lib/config.ts",
+    "./store": "./src/lib/store.ts"
+  },
   "scripts": {
     "dev": "tsx watch dev-server.ts",
-    "build": "tsc --noEmit",
+    "build": "echo 'settlement: build handled by @vercel/node at deploy time'",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "deploy": "vercel --prod"

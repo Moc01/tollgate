@@ -40,8 +40,10 @@ Available sources cost between \$0.0005 and \$0.003 per call. Be frugal.`
 export async function runCurioAgent(args: {
   query: string
   emit: CurioEmit
+  /** Same-origin base URL when settlement/examples are bundled into this Next.js app. */
+  selfBaseUrl?: string
 }): Promise<void> {
-  const { query, emit } = args
+  const { query, emit, selfBaseUrl } = args
 
   // Build paid fetch
   const wallet = loadAgentWallet()
@@ -49,7 +51,14 @@ export async function runCurioAgent(args: {
     process.env.HELIUS_RPC_URL ??
     `https://devnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY ?? ''}`
 
-  const examplesBaseUrl = process.env.EXAMPLES_BASE_URL ?? 'http://localhost:4001'
+  // When EXAMPLES_BASE_URL is unset, fall back to the request's own origin
+  // (settlement + examples are mounted as Next.js api routes on this same host).
+  const examplesBaseUrl =
+    process.env.EXAMPLES_BASE_URL && process.env.EXAMPLES_BASE_URL !== ''
+      ? process.env.EXAMPLES_BASE_URL
+      : selfBaseUrl
+        ? `${selfBaseUrl.replace(/\/$/, '')}/api/examples`
+        : 'http://localhost:3002/api/examples'
 
   const paidFetch = withTollgate(globalThis.fetch, {
     wallet,

@@ -8,8 +8,6 @@ import { assertConfig, loadConfigFromEnv } from '../src/lib/config'
 import { PostgresStore } from '../src/lib/postgres-store'
 import { InMemoryStore } from '../src/lib/store'
 
-export const config = { runtime: 'nodejs' }
-
 const appConfig = loadConfigFromEnv()
 assertConfig(appConfig)
 

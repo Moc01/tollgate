@@ -16,6 +16,10 @@ export async function POST(req: NextRequest) {
     return new Response('Empty query', { status: 400 })
   }
 
+  // Origin of this request — used as the base URL for same-host examples/settlement.
+  const url = new URL(req.url)
+  const selfBaseUrl = `${url.protocol}//${url.host}`
+
   const stream = new ReadableStream({
     async start(controller) {
       const enc = new TextEncoder()
@@ -26,6 +30,7 @@ export async function POST(req: NextRequest) {
       try {
         await runCurioAgent({
           query,
+          selfBaseUrl,
           emit: async (e) => send(e),
         })
       } catch (err) {

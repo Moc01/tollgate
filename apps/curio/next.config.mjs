@@ -29,17 +29,30 @@ loadMonorepoEnv()
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@tollgate/agent', '@tollgate/shared'],
-  serverExternalPackages: ['@solana/web3.js', '@solana/spl-token'],
+  transpilePackages: [
+    '@tollgate/agent',
+    '@tollgate/middleware',
+    '@tollgate/shared',
+    'settlement',
+    'examples',
+  ],
+  serverExternalPackages: ['@solana/web3.js', '@solana/spl-token', 'drizzle-orm', 'postgres'],
   // Forward env vars Curio's server runtime needs.
   env: {
     ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY ?? '',
     HELIUS_API_KEY: process.env.HELIUS_API_KEY ?? '',
     HELIUS_RPC_URL: process.env.HELIUS_RPC_URL ?? '',
-    TOLLGATE_SETTLEMENT_URL: process.env.TOLLGATE_SETTLEMENT_URL ?? 'http://localhost:3001',
-    EXAMPLES_BASE_URL: process.env.EXAMPLES_BASE_URL ?? 'http://localhost:4001',
+    TOLLGATE_JWT_PRIVATE_KEY: process.env.TOLLGATE_JWT_PRIVATE_KEY ?? '',
+    TOLLGATE_JWT_PUBLIC_KEY: process.env.TOLLGATE_JWT_PUBLIC_KEY ?? '',
+    TOLLGATE_JWT_KID: process.env.TOLLGATE_JWT_KID ?? 'tg-2026-05',
+    TOLLGATE_ISSUER: process.env.TOLLGATE_ISSUER ?? 'https://tollgate.dev',
+    TOLLGATE_SETTLEMENT_URL: process.env.TOLLGATE_SETTLEMENT_URL ?? '',
+    EXAMPLES_BASE_URL: process.env.EXAMPLES_BASE_URL ?? '',
+    EXAMPLES_RECIPIENT_WALLET: process.env.EXAMPLES_RECIPIENT_WALLET ?? '',
     CURIO_AGENT_SECRET_KEY: process.env.CURIO_AGENT_SECRET_KEY ?? '',
     CURIO_SIMULATE_PAYMENTS: process.env.CURIO_SIMULATE_PAYMENTS ?? 'true',
+    SOLANA_NETWORK: process.env.SOLANA_NETWORK ?? 'devnet',
+    TOLLGATE_SKIP_ONCHAIN_VERIFY: process.env.TOLLGATE_SKIP_ONCHAIN_VERIFY ?? 'true',
   },
   experimental: {
     serverActions: { bodySizeLimit: '2mb' },

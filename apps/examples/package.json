@@ -4,9 +4,13 @@
   "private": true,
   "description": "Five mock paid APIs protected by @tollgate/middleware. Used by Curio.",
   "type": "module",
+  "exports": {
+    "./app": "./src/index.ts",
+    "./register": "./src/register.ts"
+  },
   "scripts": {
     "dev": "tsx watch dev-server.ts",
-    "build": "tsc --noEmit",
+    "build": "echo 'examples: build handled by @vercel/node at deploy time'",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "deploy": "vercel --prod"
