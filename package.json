@@ -26,6 +26,7 @@
     "clean": "pnpm -r clean && rm -rf node_modules",
     "tg:keygen": "tsx scripts/keygen.ts",
     "tg:airdrop-usdc": "tsx scripts/airdrop-usdc.ts",
+    "tg:setup-curio": "tsx scripts/setup-curio-wallet.ts",
     "tg:e2e": "tsx scripts/e2e.ts",
     "db:generate": "pnpm --filter @tollgate/shared db:generate",
     "db:migrate": "pnpm --filter @tollgate/shared db:migrate",
