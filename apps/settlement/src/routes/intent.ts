@@ -5,6 +5,7 @@ import {
   isValidSolanaAddress,
   splitUsdcUnits,
   toUsdcUnits,
+  type SolanaNetwork,
 } from '@tollgate/shared'
 /**
  * POST /v1/intent — create a payment intent.
@@ -60,7 +61,7 @@ intentRouter.post('/intent', async (c) => {
     // Return existing pending intent
     return c.json({
       intent_id: existing.id,
-      pay_url: buildPayUrl(endpoint, challenge),
+      pay_url: buildPayUrl(endpoint, challenge, config.network),
       expires_at: existing.expires_at,
     })
   }
@@ -84,7 +85,7 @@ intentRouter.post('/intent', async (c) => {
 
   return c.json({
     intent_id: id,
-    pay_url: buildPayUrl(endpoint, challenge),
+    pay_url: buildPayUrl(endpoint, challenge, config.network),
     expires_at: expiresAt,
   })
 })
@@ -96,6 +97,7 @@ function buildPayUrl(
     price_usdc: string
   },
   challenge: string,
+  network: SolanaNetwork,
 ): string {
   // For multi-recipient, Solana Pay supports only one recipient in the URL.
   // We use the first split as the URL recipient (the actual transaction
@@ -112,7 +114,7 @@ function buildPayUrl(
   return buildSolanaPayUrl({
     recipient,
     amount: amountInUsdc,
-    splToken: getUsdcMint('devnet'), // TODO: pull from app config; mainnet vs devnet
+    splToken: getUsdcMint(network),
     reference: challenge,
     label: 'Tollgate',
   })
