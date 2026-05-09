@@ -71,3 +71,5 @@ drizzle/.cache/
 
 # TypeScript build info
 *.tsbuildinfo
+
+.commit-msg.tmp
