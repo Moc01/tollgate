@@ -45,6 +45,32 @@ export default function Home() {
           transparent cost breakdown, settled on Solana in stablecoins.
         </p>
 
+        <div
+          role="note"
+          className="mt-6 flex items-start gap-3 rounded-md border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-xs leading-relaxed text-muted"
+        >
+          <span
+            className="mt-0.5 inline-flex shrink-0 items-center rounded px-1.5 py-0.5 font-mono text-[10px] font-bold tracking-wider"
+            style={{ background: 'rgba(20,241,149,0.12)', color: '#14F195' }}
+          >
+            SIM
+          </span>
+          <span>
+            Simulated payment mode. The full HTTP-402 protocol runs end-to-end (intent → webhook →
+            JWT → retry), but the on-chain USDC transfer is synthesized for the live demo. Source
+            data is mock; the protocol is real. See the{' '}
+            <a
+              className="underline hover:text-text"
+              href="https://github.com/Moc01/tollgate#tollgate"
+              target="_blank"
+              rel="noreferrer"
+            >
+              repo
+            </a>{' '}
+            for instructions on running real on-chain settlement.
+          </span>
+        </div>
+
         <SearchExperience />
       </header>
 

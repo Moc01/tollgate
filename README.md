@@ -16,6 +16,22 @@
 
 ---
 
+> [!IMPORTANT]
+> **Live demo runs in simulated payment mode.** &nbsp;The deployed [`tollgate-curio.vercel.app`](https://tollgate-curio.vercel.app) runs the full Tollgate-402 protocol end-to-end — `402 → intent → webhook → JWT → retry` — but **the on-chain USDC transfer step is synthesized** (`CURIO_SIMULATE_PAYMENTS=true`). No real funds move, no real Solana transaction is broadcast. The 5 paid APIs return **hard-coded mock data**, not real Wikipedia/GitHub/ArXiv content.
+>
+> Why simulated for the live URL? Devnet faucets rate-limit (1 SOL/project/day, 10 USDC/wallet), and a real-funds demo would deplete during judging. The infrastructure to run real on-chain settlement is fully implemented and tested — flip `CURIO_SIMULATE_PAYMENTS=false`, set `TOLLGATE_SKIP_ONCHAIN_VERIFY=false`, fund the agent wallet from [Circle faucet](https://faucet.circle.com/), and every payment becomes a real USDC transfer with a Solana Explorer link in the cost breakdown.
+>
+> Suggested queries on the homepage are scoped to Solana / AI-agent topics (Firedancer, USDC, HTTP 402, BUIDL, etc.) because the mock dataset is Solana-themed; out-of-scope queries return mismatched citations. The protocol itself is content-agnostic.
+
+> [!IMPORTANT]
+> **演示模式说明（中文）。** 上线的 [`tollgate-curio.vercel.app`](https://tollgate-curio.vercel.app) 跑完了完整 Tollgate-402 协议链路（`402 → intent → webhook → JWT → retry`），但**链上转 USDC 这一步是模拟的**（`CURIO_SIMULATE_PAYMENTS=true`）。没有真钱流动，Solana 链上没有真实交易。5 个付费 API 返回的是**硬编码 mock 数据**，不是真实 Wikipedia/GitHub/ArXiv。
+>
+> 为什么线上要模拟：devnet 水龙头每日限额 1 SOL / 项目、10 USDC / 钱包，真链上 demo 会在判审周期内被薅干。真链上结算的所有代码都已实现并测试过——把 `CURIO_SIMULATE_PAYMENTS` 设为 `false`、`TOLLGATE_SKIP_ONCHAIN_VERIFY` 设为 `false`、给 agent 钱包从 [Circle 水龙头](https://faucet.circle.com/) 充值，每笔付款就是真的链上 USDC 转账，cost breakdown 里会出现 Solana Explorer 链接。
+>
+> 首页推荐查询锁定在 Solana / AI agent 话题（Firedancer、USDC、HTTP 402、BUIDL 等），因为 mock 数据集是 Solana 主题的；问题超出这个圈，引用会错位。协议本身与内容无关。
+
+---
+
 ## 🎯 What We're Building / 我们在做什么
 
 A submission for [Solana Frontier Hackathon 2026](https://colosseum.com/frontier) (April 6 – May 11, 2026).
