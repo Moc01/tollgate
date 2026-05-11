@@ -253,7 +253,10 @@ export const SOLANA_DOCS: SearchHit[] = [
 // ----------------------------- Search helpers -----------------------------
 
 export function searchAll(items: SearchHit[], query: string, limit = 5): SearchHit[] {
+  // Empty query (no q param) — return a sample so curl-only callers see what's
+  // available. This is the only path that returns content without a match.
   if (!query.trim()) return items.slice(0, limit)
+
   const q = query.toLowerCase()
   const scored = items
     .map((item) => {
@@ -270,7 +273,12 @@ export function searchAll(items: SearchHit[], query: string, limit = 5): SearchH
     .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-  return scored.length > 0 ? scored.map((s) => s.item) : items.slice(0, limit)
+
+  // For non-empty queries that match nothing: return [] rather than silently
+  // padding with unrelated Solana content. This keeps citations honest — the
+  // agent will see zero results and tell the user transparently. Real-world
+  // APIs behave the same way (and still charge for the lookup).
+  return scored.map((s) => s.item)
 }
 
 export function searchWiki(query: string): SearchHit | null {
