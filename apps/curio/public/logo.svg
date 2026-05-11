@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="Tollgate">
+  <title>Tollgate</title>
+  <!-- Outer ring (coin edge) -->
+  <circle cx="500" cy="500" r="420" fill="none" stroke="#14F195" stroke-width="50"/>
+  <!-- Coin face -->
+  <circle cx="500" cy="500" r="380" fill="#0F0F0F"/>
+  <!-- Engraved inner ring -->
+  <circle cx="500" cy="500" r="335" fill="none" stroke="#14F195" stroke-width="2" opacity="0.25"/>
+  <!-- 402 (the HTTP Payment Required status code) -->
+  <text x="500" y="525" text-anchor="middle" dominant-baseline="central"
+        font-family="Inter, 'Geist Sans', 'Helvetica Neue', system-ui, sans-serif"
+        font-weight="900" font-size="290" letter-spacing="-14" fill="#FFFFFF">402</text>
+  <!-- Inscription, like the legend on a real coin -->
+  <text x="500" y="755" text-anchor="middle" dominant-baseline="central"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-weight="700" font-size="32" letter-spacing="6"
+        fill="#14F195" opacity="0.65">PAYMENT · REQUIRED</text>
+</svg>

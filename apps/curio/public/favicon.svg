@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Tollgate">
+  <title>Tollgate</title>
+  <circle cx="500" cy="500" r="420" fill="none" stroke="#14F195" stroke-width="50"/>
+  <circle cx="500" cy="500" r="380" fill="#0F0F0F"/>
+  <text x="500" y="525" text-anchor="middle" dominant-baseline="central"
+        font-family="Inter, system-ui, sans-serif"
+        font-weight="900" font-size="320" letter-spacing="-16" fill="#FFFFFF">402</text>
+</svg>

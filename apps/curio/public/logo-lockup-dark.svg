@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 700" width="2200" height="700" role="img" aria-label="Tollgate">
+  <title>Tollgate</title>
+  <g transform="translate(50, 90) scale(0.52)">
+    <circle cx="500" cy="500" r="420" fill="none" stroke="#14F195" stroke-width="50"/>
+    <circle cx="500" cy="500" r="380" fill="#0F0F0F"/>
+    <circle cx="500" cy="500" r="335" fill="none" stroke="#14F195" stroke-width="2" opacity="0.25"/>
+    <text x="500" y="525" text-anchor="middle" dominant-baseline="central"
+          font-family="Inter, system-ui, sans-serif" font-weight="900"
+          font-size="290" letter-spacing="-14" fill="#FFFFFF">402</text>
+  </g>
+  <text x="640" y="430"
+        font-family="Inter, 'Helvetica Neue', system-ui, sans-serif"
+        font-weight="700" font-size="240" letter-spacing="-8" fill="#FFFFFF">Tollgate</text>
+</svg>

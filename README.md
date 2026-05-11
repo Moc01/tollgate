@@ -1,7 +1,14 @@
-# Tollgate
+<p align="center">
+  <img src="apps/curio/public/logo-lockup-light.svg#gh-light-mode-only" alt="Tollgate" width="520" />
+  <img src="apps/curio/public/logo-lockup-dark.svg#gh-dark-mode-only" alt="Tollgate" width="520" />
+</p>
 
-> *The vending machine for AI agents.*
-> *AI 智能体的自动售货机。*
+<p align="center">
+  <em>The vending machine for AI agents.</em><br>
+  <em>AI 智能体的自动售货机。</em>
+</p>
+
+---
 
 **Tollgate** is a Solana-native HTTP 402 protocol that lets any API charge AI agents per call in USDC stablecoins, with one line of code.
 

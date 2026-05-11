@@ -2,11 +2,18 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Curio — AI search powered by Tollgate',
-  description: 'Ask anything. Watch your AI pay per source in USDC, on Solana, in real time.',
+  title: 'Tollgate — HTTP 402 done right. For AI agents, on Solana.',
+  description:
+    'A Solana-native HTTP 402 protocol. Any API can charge AI agents per call in USDC, with one line of code. Live demo: Curio AI search.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+  },
   openGraph: {
-    title: 'Curio',
-    description: 'AI search agent powered by Tollgate. Per-source on-chain USDC settlement.',
+    title: 'Tollgate',
+    description:
+      'The vending machine for AI agents. Pay-per-API-call in USDC on Solana.',
     type: 'website',
   },
 }

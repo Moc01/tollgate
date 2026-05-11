@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { SearchExperience } from '@/components/SearchExperience'
 
 export default function Home() {
@@ -5,10 +6,26 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center px-4 py-12 sm:py-20">
       <header className="w-full max-w-3xl">
         <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-gradient-to-br from-accent to-accent2" />
-            <span className="text-xl font-semibold tracking-tight">Curio</span>
-          </div>
+          <a
+            href="https://github.com/Moc01/tollgate"
+            className="flex items-center gap-3 group"
+            aria-label="Tollgate"
+          >
+            <Image
+              src="/logo.svg"
+              alt="Tollgate"
+              width={36}
+              height={36}
+              priority
+              className="rounded-full"
+            />
+            <span className="flex flex-col leading-none">
+              <span className="text-xl font-semibold tracking-tight">Tollgate</span>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-muted mt-1">
+                Curio · live demo
+              </span>
+            </span>
+          </a>
           <a
             href="https://github.com/Moc01/tollgate"
             target="_blank"
