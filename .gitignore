@@ -73,3 +73,33 @@ drizzle/.cache/
 *.tsbuildinfo
 
 .commit-msg.tmp
+
+# ---------------------------------------------------------------------------
+# Personal hackathon prep — kept local, not in the public repo
+# ---------------------------------------------------------------------------
+docs/PITCH_STRATEGY.md
+docs/PITCH_VIDEO_SCRIPT.md
+docs/SUBMISSION_CHECKLIST.md
+docs/TECHNICAL_DEMO_SCRIPT.md
+docs/zh/Pitch策略.md
+docs/zh/Pitch视频脚本.md
+docs/zh/提交清单.md
+docs/zh/技术演示脚本.md
+
+# ---------------------------------------------------------------------------
+# Video deliverables — hosted on Loom / YouTube / Vercel, not in the repo.
+# (Source + render scripts live under workspace/, not here. The rendered
+# binaries are large and provide no review value.)
+# ---------------------------------------------------------------------------
+*.mp4
+*.mov
+*.avi
+*.webm
+*.mkv
+
+# ---------------------------------------------------------------------------
+# NOTE: brand assets under `logo/` ARE tracked on purpose — SVG/PNG/JPG
+# placed in that directory will be uploaded so README lockups, partners,
+# and press kits can grab them. No exclude rule above touches that path.
+# ---------------------------------------------------------------------------
+

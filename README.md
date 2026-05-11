@@ -106,7 +106,6 @@ Detailed setup: see [docs/SETUP.md](./docs/SETUP.md) / 详细配置：见 [docs/
 - [Data Model](./docs/DATA_MODEL.md) — Schemas
 - [Project Plan](./docs/PROJECT_PLAN.md) — 11-day execution
 - [Security](./docs/SECURITY.md) — Threat model
-- [Pitch Strategy](./docs/PITCH_STRATEGY.md) — How we win
 
 ### 中文
 
@@ -117,7 +116,6 @@ Detailed setup: see [docs/SETUP.md](./docs/SETUP.md) / 详细配置：见 [docs/
 - [数据模型](./docs/zh/数据模型.md)
 - [开发计划](./docs/zh/开发计划.md)
 - [安全模型](./docs/zh/安全模型.md)
-- [Pitch 策略](./docs/zh/Pitch策略.md)
 
 ---
 
